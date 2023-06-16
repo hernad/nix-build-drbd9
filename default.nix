@@ -17,6 +17,7 @@ stdenv.mkDerivation rec {
 
   KERNEL = kernel.dev;
   KERNEL_VERSION = kernel.modDirVersion;
+  #DESTDIR = "$out";
 
   buildInputs = [ 
       kernel.dev 
@@ -37,10 +38,12 @@ stdenv.mkDerivation rec {
   #  make
   #'';
 
-  #installPhase = ''
-  #  mkdir -p $out/bin
-  #  mv chord $out/bin
-  #'';
+  installPhase = ''
+    mkdir -p $out/
+    #pwd
+    #find .
+    mv ./drbd.ko $out/
+  '';
 
   # Initially, nix-shell was designed to enter a package’s build environment for debugging purpose.
   # However, nix-shell can also be used to enter an custom environment defined
@@ -49,6 +52,6 @@ stdenv.mkDerivation rec {
   shellHook = ''
      echo KERNEL = $KERNEL
      echo KERNEL_VERSION = $KERNEL_VERSION
-
+     #echo DESTDIR = $DESTDIR
   '';
 }
